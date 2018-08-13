@@ -2,7 +2,7 @@ import React from 'react'
 import Board from './Board'
 import * as ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
-import {DIRECTION, movePlayer} from '../actions/game'
+import {DIRECTION, setPlayerPosition} from '../actions/game'
 
 class Game extends React.Component {
     constructor(props) {
@@ -51,7 +51,23 @@ class Game extends React.Component {
                 direction = DIRECTION.right
                 break
         }
-        this.props.movePlayer(direction)
+        this.movePlayer(direction)
+    }
+
+    movePlayer(direction) {
+        let x = this.props.player.x;
+        let y = this.props.player.y;
+        switch (direction) {
+            case DIRECTION.up:
+                return this.props.setPlayerPosition(x, y-1)
+            case DIRECTION.down:
+                return this.props.setPlayerPosition(x, y+1)
+            case DIRECTION.left:
+                return this.props.setPlayerPosition(x-1, y)
+            case DIRECTION.right:
+                return this.props.setPlayerPosition(x+1, y)
+            default:
+        }
     }
 
     componentDidMount() {
@@ -59,9 +75,7 @@ class Game extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.state.active) {
-            this.focusDiv()
-        }
+        this.focusDiv()
     }
 
     focusDiv() {
@@ -76,10 +90,8 @@ const mapStateToProps = function (state, ownProps) {
 }
 
 const mapDispatchToProps = function (dispatch, ownProps) {
-    let player = ownProps.player
-
     return {
-        movePlayer: direction => dispatch(movePlayer(direction, player.x, player.y)),
+        setPlayerPosition: (x, y) => dispatch(setPlayerPosition(x, y)),
     }
 }
 

@@ -13,8 +13,8 @@ class Board extends React.Component {
         return (
             <Tile
                 key={key}
-                x={i}
-                y={j}
+                x={j}
+                y={i}
             />
         );
     }

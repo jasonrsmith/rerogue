@@ -10,19 +10,3 @@ export const setPlayerPosition = (x, y) => ({
     x: x,
     y: y,
 })
-
-export const movePlayer = (direction, x, y) => {
-    setPlayerPosition()
-    switch (direction) {
-        case DIRECTION.up:
-            return setPlayerPosition(x, y-1)
-        case DIRECTION.down:
-            return setPlayerPosition(x, y+1)
-        case DIRECTION.left:
-            return setPlayerPosition(x-1, y)
-        case DIRECTION.right:
-            return setPlayerPosition(x+1, y)
-        default:
-            return {}
-    }
-}
