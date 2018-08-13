@@ -17,5 +17,5 @@ store.dispatch(setPlayerPosition(0, 2));
 
 // ========================================
 
-ReactDOM.render(<Game/>, document.getElementById("root"));
+ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'));
 

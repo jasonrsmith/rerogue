@@ -9,11 +9,12 @@ class Board extends React.Component {
     }
 
     renderTile(i, j) {
-        let val = i + "," + j;
+        let key = i + "," + j;
         return (
             <Tile
-                key={val}
-                value={val}
+                key={key}
+                x={i}
+                y={j}
             />
         );
     }
@@ -21,7 +22,9 @@ class Board extends React.Component {
     renderRow(i) {
         let tiles = Array(this.xlen).fill(1).map((val, j) => this.renderTile(i, j));
         return (
-            <div className="board-row" key={i}>
+            <div
+                className="board-row"
+                key={i}>
                 {tiles}
             </div>
         )

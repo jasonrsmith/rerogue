@@ -5,7 +5,7 @@ const initialState = {
         health: 1,
         attack: 1,
     },
-};
+}
 
 const game = (state = initialState, action) => {
     switch (action.type) {
@@ -16,10 +16,10 @@ const game = (state = initialState, action) => {
                     x: action.x,
                     y: action.y,
                 },
-            });
+            })
         default:
-            return state;
+            return state
     }
 }
 
-export default game;
+export default game
