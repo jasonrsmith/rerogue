@@ -48,6 +48,7 @@ ol, ul {
     display: flex;
     flex-direction: row;
     outline: none;
+    position: absolute;
 }
 
 .game-info {

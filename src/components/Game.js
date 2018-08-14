@@ -3,6 +3,9 @@ import Board from './Board'
 import * as ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {DIRECTION, setPlayerPosition} from '../actions/game'
+import sizeMe from 'react-sizeme'
+
+const TILE_SIZE_PX=64
 
 class Game extends React.Component {
     constructor(props) {
@@ -13,12 +16,19 @@ class Game extends React.Component {
     }
 
     render() {
+        console.log(this.props.size)
+        const pStyle = {
+            left: '10px',
+            top: '20px',
+        }
+
         return (
             <div
                 ref="gameDiv"
                 className="game"
                 onKeyDown={(e) => this.onKeyPressed(e)}
                 tabIndex="0"
+                style={pStyle}
             >
                 <div
                     className="game-board"
@@ -55,8 +65,8 @@ class Game extends React.Component {
     }
 
     movePlayer(direction) {
-        let x = this.props.player.x;
-        let y = this.props.player.y;
+        let x = this.props.player.x
+        let y = this.props.player.y
         switch (direction) {
             case DIRECTION.up:
                 return this.props.setPlayerPosition(x, y-1)
