@@ -11,7 +11,6 @@ import gameReducer from './reducers/game';
 
 const store = createStore(gameReducer);
 console.log(store.getState());
-store.subscribe(() => console.log(store.getState()));
 store.dispatch(setPlayerPosition(0, 1));
 store.dispatch(setPlayerPosition(0, 2));
 

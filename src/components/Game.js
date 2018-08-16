@@ -3,7 +3,7 @@ import Board from './Board'
 import * as ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import {DIRECTION, setPlayerPosition} from '../actions/game'
-import sizeMe from 'react-sizeme'
+import Player from './Player'
 
 const TILE_SIZE_PX=64
 
@@ -16,31 +16,44 @@ class Game extends React.Component {
     }
 
     render() {
-        console.log(this.props.size)
+        let player = this.props.player
+        let left = (window.innerWidth / 2)
+            - (this.xlen * TILE_SIZE_PX / 4)
+            - (player.x * (TILE_SIZE_PX)) - 1
+            //- (player.x * (TILE_SIZE_PX + 1)) - 1
+            + TILE_SIZE_PX;
+        let top = (window.innerHeight / 2)
+            - (this.ylen * TILE_SIZE_PX / 4)
+            //- (player.y * (TILE_SIZE_PX + 1))
+            - (player.y * (TILE_SIZE_PX))
+            + 2 * TILE_SIZE_PX;
         const pStyle = {
-            left: '10px',
-            top: '20px',
+            left: left + 'px',
+            top: top + 'px',
         }
 
         return (
-            <div
-                ref="gameDiv"
-                className="game"
-                onKeyDown={(e) => this.onKeyPressed(e)}
-                tabIndex="0"
-                style={pStyle}
-            >
+            <div className="game-container">
                 <div
-                    className="game-board"
+                    ref="gameDiv"
+                    className="game"
+                    onKeyDown={(e) => this.onKeyPressed(e)}
+                    tabIndex="0"
+                    style={pStyle}
                 >
-                    <Board
-                        xlen={this.xlen}
-                        ylen={this.ylen}
-                        entities={this.entities}
-                    />
+                    <div
+                        className="game-board"
+                    >
+                        <Board
+                            xlen={this.xlen}
+                            ylen={this.ylen}
+                            entities={this.entities}
+                        />
+                    </div>
+                    <div className="game-info">
+                    </div>
                 </div>
-                <div className="game-info">
-                </div>
+                <Player/>
             </div>
         )
     }
@@ -87,6 +100,20 @@ class Game extends React.Component {
     componentDidUpdate() {
         this.focusDiv()
     }
+    /*
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+    */
 
     focusDiv() {
         ReactDOM.findDOMNode(this.refs.gameDiv).focus()

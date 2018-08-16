@@ -4,6 +4,7 @@ html {
 
 body {
     font: 14px "Century Gothic", Futura, sans-serif;
+    overflow: hidden;
 }
 
 ol, ul {
@@ -22,14 +23,11 @@ ol, ul {
 
 .square {
     background: #fff;
-    border: 1px solid #999;
     float: left;
     font-size: 24px;
     font-weight: bold;
     line-height: 64px;
     height: 64px;
-    margin-right: -1px;
-    margin-top: -1px;
     padding: 0;
     text-align: center;
     width: 64px;
@@ -43,14 +41,27 @@ ol, ul {
     background: #ddd;
 }
 
+.game-container {
+    position: relative;
+    width: 100%;
+}
+
 .game {
     user-select: none;
     display: flex;
     flex-direction: row;
     outline: none;
     position: absolute;
+    transition: 0.2s;
 }
 
 .game-info {
     margin-left: 20px;
+}
+
+.player {
+    left: 50%;
+    top: 50%;
+    position: fixed;
+    transform: translate(-50%, 0);
 }
