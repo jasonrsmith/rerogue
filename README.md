@@ -1,8 +1,8 @@
 # TODO
-* Camera centers on player
-* Arbitrary entities on tilemap
-* Draw single static enemy
+* Components in ioc container
+* Render tilemap
+* Collision detection
+* Simple enemy
 * Enemy goes toward player
 * Simple combat
 * Player pickups
-* Tests

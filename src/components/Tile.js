@@ -8,9 +8,16 @@ class Tile extends React.Component {
     }
 
     render() {
+        let pStyle = {
+            background: "url('dungeon.png') no-repeat -0px -64px",
+            width: '64px',
+            height: '64px',
+        }
+
         return (
-            <div className="square">
-                {this.props.entity && <Player/>}
+            <div className="square"
+                 style={pStyle}
+            >
             </div>
         )
     }

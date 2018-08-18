@@ -1,20 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import 'normalize.css';
-import './index.css';
-import './Rogue.css';
-import Game from './components/Game';
-import {setPlayerPosition} from './actions/game';
-import gameReducer from './reducers/game';
+import 'normalize.css'
+import './index.css'
+import './Rogue.css'
+import Game from './components/Game'
+import {setPlayerPosition} from './actions/game'
+import gameReducer from './reducers/game'
 
-const store = createStore(gameReducer);
-console.log(store.getState());
-store.dispatch(setPlayerPosition(0, 1));
-store.dispatch(setPlayerPosition(0, 2));
+const store = createStore(gameReducer)
+console.log(store.getState())
+store.dispatch(setPlayerPosition(0, 1))
+store.dispatch(setPlayerPosition(0, 2))
 
 // ========================================
 
-ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'))
 
+let url = 'dungeon.json'
+
+
+fetch(url)
+    .then(res => res.json())
+    .then((out) => {
+        console.log('Checkout this JSON! ', out)
+    })
+    .catch(err => { throw err })

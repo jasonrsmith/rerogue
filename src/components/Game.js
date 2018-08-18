@@ -20,11 +20,9 @@ class Game extends React.Component {
         let left = (window.innerWidth / 2)
             - (this.xlen * TILE_SIZE_PX / 4)
             - (player.x * (TILE_SIZE_PX)) - 1
-            //- (player.x * (TILE_SIZE_PX + 1)) - 1
             + TILE_SIZE_PX;
         let top = (window.innerHeight / 2)
             - (this.ylen * TILE_SIZE_PX / 4)
-            //- (player.y * (TILE_SIZE_PX + 1))
             - (player.y * (TILE_SIZE_PX))
             + 2 * TILE_SIZE_PX;
         const pStyle = {

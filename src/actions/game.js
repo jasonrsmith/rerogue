@@ -10,3 +10,19 @@ export const setPlayerPosition = (x, y) => ({
     x: x,
     y: y,
 })
+
+export const loadTilemapFile = tilemapFilename => ({
+
+})
+
+export const loadTilemap = tilemapParams => ({
+
+})
+
+export const loadWorldFile = worldFilename => ({
+
+})
+
+export const loadWorld = worldParams => ({
+
+})
