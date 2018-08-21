@@ -1,28 +1,25 @@
 import React from 'react'
-import Board from './Board'
 import * as ReactDOM from 'react-dom'
-import {connect} from 'react-redux'
-import {DIRECTION, setPlayerPosition} from '../actions/game'
+import {DIRECTION} from '../actions/game'
 import Player from './Player'
 
 const TILE_SIZE_PX=64
 
+export default (xlen, ylen, Board) =>
 class Game extends React.Component {
     constructor(props) {
         super(props)
-        this.xlen = 6
-        this.ylen = 8
-        this.entities = Array(this.xlen * this.ylen)
+        this.entities = Array(xlen * ylen)
     }
 
     render() {
         let player = this.props.player
         let left = (window.innerWidth / 2)
-            - (this.xlen * TILE_SIZE_PX / 4)
+            - (xlen * TILE_SIZE_PX / 4)
             - (player.x * (TILE_SIZE_PX)) - 1
             + TILE_SIZE_PX;
         let top = (window.innerHeight / 2)
-            - (this.ylen * TILE_SIZE_PX / 4)
+            - (ylen * TILE_SIZE_PX / 4)
             - (player.y * (TILE_SIZE_PX))
             + 2 * TILE_SIZE_PX;
         const pStyle = {
@@ -42,11 +39,7 @@ class Game extends React.Component {
                     <div
                         className="game-board"
                     >
-                        <Board
-                            xlen={this.xlen}
-                            ylen={this.ylen}
-                            entities={this.entities}
-                        />
+                        <Board />
                     </div>
                     <div className="game-info">
                     </div>
@@ -117,20 +110,3 @@ class Game extends React.Component {
         ReactDOM.findDOMNode(this.refs.gameDiv).focus()
     }
 }
-
-const mapStateToProps = function (state, ownProps) {
-    return {
-        player: state.player
-    }
-}
-
-const mapDispatchToProps = function (dispatch, ownProps) {
-    return {
-        setPlayerPosition: (x, y) => dispatch(setPlayerPosition(x, y)),
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Game)

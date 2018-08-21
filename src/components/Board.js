@@ -1,11 +1,9 @@
 import React from 'react';
-import Tile from './Tile';
 
+export default (xlen, ylen, Tile) =>
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.xlen = props.xlen;
-        this.ylen = props.ylen;
     }
 
     renderTile(i, j) {
@@ -20,7 +18,7 @@ class Board extends React.Component {
     }
 
     renderRow(i) {
-        let tiles = Array(this.xlen).fill(1).map((val, j) => this.renderTile(i, j));
+        let tiles = Array(xlen).fill(1).map((val, j) => this.renderTile(i, j));
         return (
             <div
                 className="board-row"
@@ -31,8 +29,6 @@ class Board extends React.Component {
     }
 
     render() {
-        return Array(this.ylen).fill(1).map((val, i) => this.renderRow(i));
+        return Array(ylen).fill(1).map((val, i) => this.renderRow(i));
     }
 }
-
-export default Board;

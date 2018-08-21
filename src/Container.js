@@ -1,3 +1,6 @@
+/**
+ * A happy little IoC Container :)
+ */
 class Container {
     constructor() {
         this.definitions = {}

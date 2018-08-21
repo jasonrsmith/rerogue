@@ -2,6 +2,7 @@ import React from 'react'
 import Player from './Player'
 import {connect} from 'react-redux'
 
+export default () =>
 class Tile extends React.Component {
     constructor(props) {
         super(props)
@@ -18,11 +19,13 @@ class Tile extends React.Component {
             <div className="square"
                  style={pStyle}
             >
+                {this.props.x},{this.props.y}
             </div>
         )
     }
 }
 
+/*
 const mapStateToProps = function (state, ownProps) {
     let player = state.player
     if (player.x === ownProps.x && player.y === ownProps.y) {
@@ -39,3 +42,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(Tile)
+*/
