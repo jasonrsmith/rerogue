@@ -8,24 +8,27 @@ const initialState = {
 }
 
 const game = (state = initialState, action) => {
+    console.log("action:", action)
+    console.log("beforestate:", state)
     switch (action.type) {
         case 'SET_PLAYER_POSITION':
-            state = Object.assign({}, state, {
+            state = {
                 ...state,
                 player: {
                     ...state.player,
                     x: action.x,
                     y: action.y,
                 },
-            })
+            }
+            break
         case 'LOAD_MAP':
-            state = Object.assign({}, state, {
+            state = {
                 ...state,
                 map: action.map
-            })
+            }
+            break
         default:
     }
-    console.log("action:", action)
     console.log("newstate:", state)
     return state
 }

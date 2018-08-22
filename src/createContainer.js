@@ -6,6 +6,10 @@ import Board from './components/Board'
 import Tile from './components/Tile'
 import MapLoader from './MapLoader'
 
+function getStyleForGid(gid, state) {
+    console.log('getstyleforgid', gid, state)
+}
+
 export default (store) => {
     let c = new Container()
     c.share('Game', (c) => connect(
@@ -32,7 +36,16 @@ export default (store) => {
             }
         }
     )(Board(c.get('Tile'))))
-    c.share('Tile', () => new Tile())
+    c.share('Tile', () => connect(
+        (state, props) => {
+            if (!state.map) {
+                return {}
+            }
+            return {
+                backgroundGid: state.map.layersByName.background.data[props.y * state.map.width + props.x]
+            }
+        }
+    )(Tile((gid) => getStyleForGid(gid, store.getState()))))
     c.share('MapLoader', () => new MapLoader((map) => store.dispatch(loadMap(map))))
     return c
 }
