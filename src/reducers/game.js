@@ -10,16 +10,24 @@ const initialState = {
 const game = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_PLAYER_POSITION':
-            return Object.assign({}, state, {
+            state = Object.assign({}, state, {
+                ...state,
                 player: {
                     ...state.player,
                     x: action.x,
                     y: action.y,
                 },
             })
+        case 'LOAD_MAP':
+            state = Object.assign({}, state, {
+                ...state,
+                map: action.map
+            })
         default:
-            return state
     }
+    console.log("action:", action)
+    console.log("newstate:", state)
+    return state
 }
 
 export default game

@@ -11,18 +11,15 @@ export const setPlayerPosition = (x, y) => ({
     y: y,
 })
 
-export const loadTilemapFile = tilemapFilename => ({
-
+export const loadMapFile = name => ({
+    type: 'LOAD_MAP_FILE',
+    mapFile: name
 })
 
-export const loadTilemap = tilemapParams => ({
-
+export const loadMap = map => ({
+    type: 'LOAD_MAP',
+    map: map
 })
 
-export const loadWorldFile = worldFilename => ({
 
-})
 
-export const loadWorld = worldParams => ({
-
-})

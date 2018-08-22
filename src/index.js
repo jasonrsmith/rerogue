@@ -10,23 +10,14 @@ import gameReducer from './reducers/game'
 import createContainer from './createContainer'
 
 const store = createStore(gameReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
-console.log(store.getState())
 store.dispatch(setPlayerPosition(0, 1))
 store.dispatch(setPlayerPosition(0, 2))
 
-let c = createContainer()
+let c = createContainer(store)
 let Game = c.get('Game')
 
 // ========================================
 
 ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'))
-
-let url = 'dungeon.json'
-fetch(url)
-    .then(res => res.json())
-    .then((out) => {
-        console.log('Checkout this JSON! ', out)
-    })
-    .catch(err => { throw err })

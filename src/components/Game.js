@@ -5,23 +5,30 @@ import Player from './Player'
 
 const TILE_SIZE_PX=64
 
-export default (xlen, ylen, Board) =>
+export default (Board, mapLoader) =>
 class Game extends React.Component {
     constructor(props) {
         super(props)
-        this.entities = Array(xlen * ylen)
+        console.log('loadmap')
+        mapLoader.load('dungeon-map.json')
     }
 
     render() {
+        let height = this.props.height
+        let width = this.props.width
+
+        if (!height || !width) {
+            return <div ref="gameDiv"></div>
+        }
         let player = this.props.player
         let left = (window.innerWidth / 2)
-            - (xlen * TILE_SIZE_PX / 4)
+            - (this.props.width * TILE_SIZE_PX / 4)
             - (player.x * (TILE_SIZE_PX)) - 1
-            + TILE_SIZE_PX;
+            + TILE_SIZE_PX
         let top = (window.innerHeight / 2)
-            - (ylen * TILE_SIZE_PX / 4)
+            - (this.props.height * TILE_SIZE_PX / 4)
             - (player.y * (TILE_SIZE_PX))
-            + 2 * TILE_SIZE_PX;
+            + 2 * TILE_SIZE_PX
         const pStyle = {
             left: left + 'px',
             top: top + 'px',

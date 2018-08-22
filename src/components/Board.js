@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (xlen, ylen, Tile) =>
+export default (Tile) =>
 class Board extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +18,7 @@ class Board extends React.Component {
     }
 
     renderRow(i) {
-        let tiles = Array(xlen).fill(1).map((val, j) => this.renderTile(i, j));
+        let tiles = Array(this.props.width).fill(1).map((val, j) => this.renderTile(i, j));
         return (
             <div
                 className="board-row"
@@ -29,6 +29,6 @@ class Board extends React.Component {
     }
 
     render() {
-        return Array(ylen).fill(1).map((val, i) => this.renderRow(i));
+        return Array(this.props.height).fill(1).map((val, i) => this.renderRow(i));
     }
 }
