@@ -1,12 +1,26 @@
-{ "columns":1,
- "image":"..\/public\/greenscreen.png",
+{ "columns":2,
+ "image":"greenscreen.png",
  "imageheight":64,
- "imagewidth":64,
+ "imagewidth":128,
  "margin":0,
  "name":"greenscreen",
  "spacing":0,
- "tilecount":1,
+ "tilecount":2,
  "tileheight":64,
+ "tileproperties":
+    {
+     "1":
+        {
+         "collidable":true
+        }
+    },
+ "tilepropertytypes":
+    {
+     "1":
+        {
+         "collidable":"bool"
+        }
+    },
  "tilewidth":64,
  "type":"tileset"
 }

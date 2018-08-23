@@ -5,20 +5,17 @@ import {loadMap, setPlayerPosition} from './actions/game'
 import Board from './components/Board'
 import Tile from './components/Tile'
 import MapLoader from './MapLoader'
+import {convert2to1} from './coordConverter'
 
-function getStyleForGid(gid, state) {
-    console.log('getstyle', gid, state.map.gids)
-    const r = state.map.gids[gid]
-    console.log(r)
-    return state.map.gids[gid]
+const getStyleForGid = (gid, state) => {
+    return state.map.gidStyles[gid]
 }
 
 export default (store) => {
     let c = new Container()
     c.share('Game', (c) => connect(
-        state =>
         state => {
-            let props = { player: state.player }
+            const props = { player: state.player }
             if (state.map) {
                 return { ...props, width: state.map.width, height: state.map.height }
             }
@@ -45,7 +42,7 @@ export default (store) => {
                 return {}
             }
             return {
-                backgroundGid: state.map.layersByName.background.data[props.y * state.map.width + props.x]
+                backgroundGid: state.map.layersByName.background.data[convert2to1(props.x, props.y, state.map.width)]
             }
         }
     )(Tile((gid) => getStyleForGid(gid, store.getState()))))

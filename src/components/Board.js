@@ -2,10 +2,6 @@ import React from 'react';
 
 export default (Tile) =>
 class Board extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderTile(i, j) {
         let key = i + "," + j;
         return (

@@ -13,9 +13,30 @@
          "y":0
         }, 
         {
-         "data":[513, 513, 513, 513, 513, 513, 513, 0, 0, 0, 0, 513, 513, 0, 0, 0, 0, 513, 513, 0, 0, 0, 0, 513, 513, 0, 0, 0, 0, 513, 513, 0, 0, 0, 0, 513, 513, 0, 0, 0, 0, 513, 513, 513, 513, 513, 513, 513],
+         "draworder":"topdown",
+         "name":"objects",
+         "objects":[
+                {
+                 "height":64,
+                 "id":40,
+                 "name":"playerSpawnPoint",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":64,
+                 "y":64
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[514, 514, 514, 514, 514, 514, 514, 0, 0, 0, 0, 514, 514, 0, 0, 0, 0, 514, 514, 0, 0, 0, 0, 514, 514, 0, 0, 0, 0, 514, 514, 0, 0, 0, 0, 514, 514, 0, 0, 0, 0, 514, 514, 514, 514, 514, 514, 514],
          "height":8,
-         "name":"collision",
+         "name":"meta",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -23,7 +44,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"left-down",
  "tiledversion":"1.1.6",
@@ -40,6 +61,10 @@
         {
          "firstgid":513,
          "source":"greenscreen.json"
+        }, 
+        {
+         "firstgid":515,
+         "source":"char.json"
         }],
  "tilewidth":64,
  "type":"map",

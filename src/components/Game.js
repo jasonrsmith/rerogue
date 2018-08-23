@@ -17,8 +17,9 @@ class Game extends React.Component {
         let width = this.props.width
 
         if (!height || !width) {
-            return <div ref="gameDiv"></div>
+            return <div ref="gameDiv"/>
         }
+
         let player = this.props.player
         let left = (window.innerWidth / 2)
             - (this.props.width * TILE_SIZE_PX / 4)
@@ -27,7 +28,7 @@ class Game extends React.Component {
         let top = (window.innerHeight / 2)
             - (this.props.height * TILE_SIZE_PX / 4)
             - (player.y * (TILE_SIZE_PX))
-    //        + 2 * TILE_SIZE_PX
+            + 2 * TILE_SIZE_PX
         const pStyle = {
             left: left + 'px',
             top: top + 'px',
@@ -70,13 +71,14 @@ class Game extends React.Component {
             case 'ArrowRight':
                 direction = DIRECTION.right
                 break
+            default:
         }
         this.movePlayer(direction)
     }
 
     movePlayer(direction) {
-        let x = this.props.player.x
-        let y = this.props.player.y
+        const x = this.props.player.x
+        const y = this.props.player.y
         switch (direction) {
             case DIRECTION.up:
                 return this.props.setPlayerPosition(x, y-1)

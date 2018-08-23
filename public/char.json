@@ -1,0 +1,25 @@
+{ "columns":54,
+ "image":"char2.png",
+ "imageheight":1624,
+ "imagewidth":3672,
+ "margin":0,
+ "name":"char",
+ "spacing":4,
+ "terrains":[
+        {
+         "name":"player",
+         "tile":0
+        }, 
+        {
+         "name":"armor",
+         "tile":6
+        }, 
+        {
+         "name":"pants",
+         "tile":60
+        }],
+ "tilecount":1242,
+ "tileheight":64,
+ "tilewidth":64,
+ "type":"tileset"
+}

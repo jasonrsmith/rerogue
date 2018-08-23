@@ -1,7 +1,9 @@
+import {convert1to2} from './coordConverter'
+
 const loadTilesetDetails = async (tileset) => {
     const response = await fetch(tileset)
-    const json = await response.json()
-    return json
+    const tilesetDetails = await response.json()
+    return tilesetDetails
 }
 
 class MapLoader {
@@ -11,33 +13,56 @@ class MapLoader {
 
     async load(mapFile) {
         fetch(mapFile)
-            .then(res => {
-                res.json().then(async (json) => {
-                    json.layersByName = {}
-                    if (!json.layers) {
-                        return
-                    }
-                    json.layers.forEach((layer) => {
-                        json.layersByName[layer['name']] = layer
-                    })
+            .then(response => {
+                response.json().then(async (map) => {
+                    const layersByName = this.loadLayers(map.layers)
+                    const gidStyles = await this.loadGidStyles(map.tilesets)
+                    const objects = this.loadObjects(map)
 
-                    json.gids = []
-                    for (const tileset of json.tilesets) {
-                        await loadTilesetDetails(tileset.source).then(tilesetDetails => {
-                            for (let i = 0; i < tilesetDetails.tilecount; i++) {
-                                let xoff = '-' + (i % tilesetDetails.columns) * tilesetDetails.tilewidth + 'px'
-                                let yoff = '-' + (Math.floor(i / tilesetDetails.columns) * tilesetDetails.tileheight) + 'px'
-                                json.gids[parseInt(tileset.firstgid + i)] = {
-                                    background: `url('${tilesetDetails.image}') no-repeat ${xoff} ${yoff}`,
-                                    width: tilesetDetails.tilewidth,
-                                    height: tilesetDetails.tileheight,
-                                }
-                            }
-                        })
-                    }
-                    this.loadMap(json)
+                    this.loadMap({
+                        ...map,
+                        layersByName: layersByName,
+                        gidStyles: gidStyles,
+                        objects: objects
+                    })
                 })
             })
+    }
+
+    loadLayers(layers) {
+        let layersByName = {}
+        for (const layer of layers) {
+            layersByName[layer['name']] = layer
+        }
+        return layersByName
+    }
+
+    async loadGidStyles(tilesets) {
+        let gidStyles = []
+        for (const tileset of tilesets) {
+            await loadTilesetDetails(tileset.source).then(tilesetDetails => {
+                for (let i = 0; i < tilesetDetails.tilecount; i++) {
+                    const xy = convert1to2(i, tilesetDetails.columns)
+                    const xoff = '-' +
+                        xy[0] * (tilesetDetails.tilewidth + tilesetDetails.spacing) + 'px'
+                    const yoff = '-' +
+                        (xy[1] * (tilesetDetails.tileheight + tilesetDetails.spacing)) + 'px'
+
+                    gidStyles[parseInt(tileset.firstgid + i, 10)] = {
+                        background: `url('${tilesetDetails.image}') no-repeat ${xoff} ${yoff}`,
+                        width: tilesetDetails.tilewidth,
+                        height: tilesetDetails.tileheight,
+                    }
+                }
+            })
+        }
+        return gidStyles
+    }
+
+    loadObjects(map) {
+        for (let i=0; i < map.width * map.height; i++) {
+            //if (map.layersByName['meta'])
+        }
     }
 }
 
