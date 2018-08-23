@@ -7,7 +7,10 @@ import Tile from './components/Tile'
 import MapLoader from './MapLoader'
 
 function getStyleForGid(gid, state) {
-    console.log('getstyleforgid', gid, state)
+    console.log('getstyle', gid, state.map.gids)
+    const r = state.map.gids[gid]
+    console.log(r)
+    return state.map.gids[gid]
 }
 
 export default (store) => {

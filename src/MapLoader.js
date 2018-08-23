@@ -1,8 +1,6 @@
 const loadTilesetDetails = async (tileset) => {
-    console.log("loading", tileset)
     const response = await fetch(tileset)
     const json = await response.json()
-    console.log(json)
     return json
 }
 
@@ -11,11 +9,10 @@ class MapLoader {
         this.loadMap = loadMap
     }
 
-    load(mapFile) {
-        let url = mapFile
-        fetch(url)
+    async load(mapFile) {
+        fetch(mapFile)
             .then(res => {
-                res.json().then((json) => {
+                res.json().then(async (json) => {
                     json.layersByName = {}
                     if (!json.layers) {
                         return
@@ -25,20 +22,19 @@ class MapLoader {
                     })
 
                     json.gids = []
-                    json.tilesets.forEach((tileset, index, array) => {
-                        loadTilesetDetails(tileset).then(tilesetDetails => {
+                    for (const tileset of json.tilesets) {
+                        await loadTilesetDetails(tileset.source).then(tilesetDetails => {
                             for (let i = 0; i < tilesetDetails.tilecount; i++) {
-                                let xoff = '-' + (i % tilesetDetails.columns) + 'px'
-                                let yoff = '-' + (Math.floor(i / tilesetDetails.columns)) + 'px'
-                                json.gids[tileset.firstgid + i] = {
-                                    background: `url('${tilesetDetails.image}' no-repeat ${xoff} ${yoff}`,
-                                    width: tilesetDetails.tileWidth,
-                                    height: tilesetDetails.tileHeight,
+                                let xoff = '-' + (i % tilesetDetails.columns) * tilesetDetails.tilewidth + 'px'
+                                let yoff = '-' + (Math.floor(i / tilesetDetails.columns) * tilesetDetails.tileheight) + 'px'
+                                json.gids[parseInt(tileset.firstgid + i)] = {
+                                    background: `url('${tilesetDetails.image}') no-repeat ${xoff} ${yoff}`,
+                                    width: tilesetDetails.tilewidth,
+                                    height: tilesetDetails.tileheight,
                                 }
                             }
                         })
-
-                    })
+                    }
                     this.loadMap(json)
                 })
             })

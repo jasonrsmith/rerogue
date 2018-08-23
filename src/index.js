@@ -12,8 +12,7 @@ import createContainer from './createContainer'
 const store = createStore(gameReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
-store.dispatch(setPlayerPosition(0, 1))
-store.dispatch(setPlayerPosition(0, 2))
+store.dispatch(setPlayerPosition(0, 0))
 
 let c = createContainer(store)
 let Game = c.get('Game')

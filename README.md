@@ -1,6 +1,5 @@
 # TODO
-* Components in ioc container
-* Render tilemap
+* Fix player positioning
 * Collision detection
 * Simple enemy
 * Enemy goes toward player

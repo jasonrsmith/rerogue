@@ -9,7 +9,6 @@ export default (Board, mapLoader) =>
 class Game extends React.Component {
     constructor(props) {
         super(props)
-        console.log('loadmap')
         mapLoader.load('dungeon-map.json')
     }
 
@@ -28,7 +27,7 @@ class Game extends React.Component {
         let top = (window.innerHeight / 2)
             - (this.props.height * TILE_SIZE_PX / 4)
             - (player.y * (TILE_SIZE_PX))
-            + 2 * TILE_SIZE_PX
+    //        + 2 * TILE_SIZE_PX
         const pStyle = {
             left: left + 'px',
             top: top + 'px',
