@@ -2,8 +2,7 @@ import React from 'react'
 import * as ReactDOM from 'react-dom'
 import {DIRECTION} from '../actions/game'
 import Player from './Player'
-
-const TILE_SIZE_PX=64
+import {TILE_SIZE_PX} from '../coordConverter'
 
 export default (Board, mapLoader) =>
 class Game extends React.Component {

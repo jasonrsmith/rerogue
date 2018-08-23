@@ -46,7 +46,10 @@ export default (store) => {
             }
         }
     )(Tile((gid) => getStyleForGid(gid, store.getState()))))
-    c.share('MapLoader', () => new MapLoader((map) => store.dispatch(loadMap(map))))
+    c.share('MapLoader', () => new MapLoader(
+        (map) => store.dispatch(loadMap(map)),
+        (x, y) => store.dispatch(setPlayerPosition(x, y)),
+    ))
     return c
 }
 
