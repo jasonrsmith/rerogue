@@ -1,11 +1,5 @@
 import {convert1to2, pixelsToCoords} from './coordConverter'
 
-const loadTilesetDetails = async (tileset) => {
-    const response = await fetch(tileset)
-    const tilesetDetails = await response.json()
-    return tilesetDetails
-}
-
 class MapLoader {
     constructor(loadMap, setPlayerPosition) {
         this.loadMap = loadMap
@@ -42,6 +36,12 @@ class MapLoader {
     async loadGidStylesAndProperties(tilesets) {
         let gidStyles = []
         let gidProperties = {}
+
+        const loadTilesetDetails = async (tileset) => {
+            const response = await fetch(tileset)
+            const tilesetDetails = await response.json()
+            return tilesetDetails
+        }
 
         const onLoadTilesetDetails = (firstgid) => {
             return (tilesetDetails) => {
