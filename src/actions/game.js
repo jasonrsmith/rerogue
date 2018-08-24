@@ -31,6 +31,7 @@ export const loadMap = map => ({
     map: map,
 })
 
-export const loadObjects = objects => ({
+export const loadObjects = objectsByPosition => ({
     type: 'LOAD_OBJECTS',
+    objectsByPosition: objectsByPosition,
 })

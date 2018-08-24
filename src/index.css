@@ -1,5 +1,5 @@
 html {
-    background-color: black;
+    background-color: #1c1117;
 }
 
 body {
@@ -42,7 +42,7 @@ ol, ul {
 }
 
 .game-container {
-    position: relative;
+    position: fixed;
     width: 10000px;
 }
 

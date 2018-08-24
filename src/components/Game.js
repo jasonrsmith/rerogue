@@ -12,22 +12,19 @@ class Game extends React.Component {
     }
 
     render() {
-        let height = this.props.height
-        let width = this.props.width
+        const height = this.props.height
+        const width = this.props.width
 
         if (!height || !width) {
             return <div ref="gameDiv"/>
         }
 
-        let player = this.props.player
-        let left = (window.innerWidth / 2)
-            - (this.props.width * TILE_SIZE_PX / 4)
+        const player = this.props.player
+        const left = (window.innerWidth / 2)
+            - (TILE_SIZE_PX / 2)
             - (player.x * (TILE_SIZE_PX)) - 1
-            + TILE_SIZE_PX
-        let top = (window.innerHeight / 2)
-            - (this.props.height * TILE_SIZE_PX / 4)
+        const top = (window.innerHeight / 2)
             - (player.y * (TILE_SIZE_PX))
-            + 2 * TILE_SIZE_PX
         const pStyle = {
             left: left + 'px',
             top: top + 'px',
