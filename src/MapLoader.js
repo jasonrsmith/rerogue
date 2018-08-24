@@ -11,15 +11,14 @@ class MapLoader {
             .then(response => {
                 response.json().then(async (map) => {
                     const layersByName = this.loadLayers(map.layers)
-                    const gids = await this.loadGidStylesAndProperties(map.tilesets)
-                    const objects = this.loadObjects(layersByName['objects'].objects)
+                    const { gidStyles, gidProperties } = await this.loadGidStylesAndProperties(map.tilesets)
+                    this.loadObjects(layersByName['objects'].objects)
 
                     this.loadMap({
                         ...map,
                         layersByName: layersByName,
-                        gidStyles: gids.gidStyles,
-                        gidProperties: gids.gidProperties,
-                        objects: objects
+                        gidStyles: gidStyles,
+                        gidProperties: gidProperties,
                     })
                 })
             })

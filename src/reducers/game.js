@@ -11,7 +11,7 @@ const game = (state = initialState, action) => {
     console.log("action:", action)
     console.log("beforestate:", state)
     switch (action.type) {
-        case 'SET_PLAYER_POSITION':
+        case 'MOVE_PLAYER':
             state = {
                 ...state,
                 player: {
@@ -25,6 +25,12 @@ const game = (state = initialState, action) => {
             state = {
                 ...state,
                 map: action.map
+            }
+            break
+        case 'LOAD_OBJECTS':
+            state = {
+                ...state,
+                objectsByPosition: action.objectsByPosition
             }
             break
         default:

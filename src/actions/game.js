@@ -11,15 +11,26 @@ export const setPlayerPosition = (x, y) => ({
     y: y,
 })
 
-export const loadMapFile = name => ({
-    type: 'LOAD_MAP_FILE',
-    mapFile: name
+export const movePlayer = (x, y) => ({
+    type: 'MOVE_PLAYER',
+    x: x,
+    y: y,
 })
+
+/*
+export const placeObjectByName = (name, x, y) => ({
+    type: 'PLACE_OBJECT_BY_NAME',
+    name: name,
+    x: x,
+    y: y,
+})
+*/
 
 export const loadMap = map => ({
     type: 'LOAD_MAP',
-    map: map
+    map: map,
 })
 
-
-
+export const loadObjects = objects => ({
+    type: 'LOAD_OBJECTS',
+})

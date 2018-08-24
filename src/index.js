@@ -1,16 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 import 'normalize.css'
 import './index.css'
 import './Rogue.css'
 import gameReducer from './reducers/game'
 import createContainer from './createContainer'
+import createSagaMiddleware from 'redux-saga'
+import mySaga from './sagas'
 
+const sagaMiddleware = createSagaMiddleware()
 const store = createStore(gameReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(sagaMiddleware)
 )
+
+sagaMiddleware.run(mySaga)
 
 let c = createContainer(store)
 let Game = c.get('Game')
