@@ -42,15 +42,15 @@ ol, ul {
 }
 
 .game-container {
+    user-select: none;
+    outline: none;
     position: fixed;
     width: 10000px;
 }
 
-.game {
-    user-select: none;
+.camera {
     display: flex;
     flex-direction: row;
-    outline: none;
     position: absolute;
     transition: 0.2s;
 }

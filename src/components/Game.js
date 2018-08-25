@@ -16,10 +16,11 @@ class Game extends React.Component {
         const width = this.props.width
 
         if (!height || !width) {
-            return <div ref="gameDiv"/>
+            return <div/>
         }
 
         const player = this.props.player
+
         const left = (window.innerWidth / 2)
             - (TILE_SIZE_PX / 2)
             - (player.x * (TILE_SIZE_PX)) - 1
@@ -31,12 +32,14 @@ class Game extends React.Component {
         }
 
         return (
-            <div className="game-container">
+            <div className="game-container"
+                 ref=""
+                 tabIndex="0"
+                 onKeyDown={(e) => this.onKeyPressed(e)}
+            >
                 <div
-                    ref="gameDiv"
-                    className="game"
-                    onKeyDown={(e) => this.onKeyPressed(e)}
-                    tabIndex="0"
+                    ref="camera"
+                    className="camera"
                     style={pStyle}
                 >
                     <div
@@ -111,6 +114,9 @@ class Game extends React.Component {
     */
 
     focusDiv() {
-        ReactDOM.findDOMNode(this.refs.gameDiv).focus()
+        const container = ReactDOM.findDOMNode(this.refs.container)
+        if (container) {
+            container.focus()
+        }
     }
 }
