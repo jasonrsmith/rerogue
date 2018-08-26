@@ -9,10 +9,11 @@ import gameReducer from './reducers/game'
 import createContainer from './createContainer'
 import createSagaMiddleware from 'redux-saga'
 import mySaga from './sagas'
+import {Hello} from './components/Hello'
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(gameReducer,
-    applyMiddleware(sagaMiddleware)
+    applyMiddleware(sagaMiddleware),
 )
 
 sagaMiddleware.run(mySaga)
@@ -20,4 +21,5 @@ sagaMiddleware.run(mySaga)
 let c = createContainer(store)
 let Game = c.get('Game')
 
-ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'))
+//ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('root'))
+ReactDOM.render(<Hello compiler="asdf" framework="zxcv"/>, document.getElementById('root'))

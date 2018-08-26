@@ -1,4 +1,4 @@
-export const TILE_SIZE_PX=64
+export const TILE_SIZE_PX = 64
 
 export const convert2to1 = (x, y, width) => {
     return y * width + x

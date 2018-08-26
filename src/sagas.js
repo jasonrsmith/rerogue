@@ -1,12 +1,12 @@
-import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
+import {call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {convert2to1, pixelsToCoords} from './coordConverter'
 import {loadObjects, movePlayer, setPlayerPosition} from './actions/game'
 
 function* loadMapSaga(action) {
     const objectsByPosition = Array(action.map.height * action.map.width)
-    const metaDefs = action.map.layersByName['meta'].data
+    const metaDefs = action.map.layersByName.meta.data
     const gidProperties = action.map.gidProperties
-    for (let i=0; i< metaDefs.length; i++) {
+    for (let i = 0; i < metaDefs.length; i++) {
         objectsByPosition[i] = gidProperties[metaDefs[i]]
     }
 
@@ -38,8 +38,8 @@ function* setPlayerPositionSaga(action) {
 }
 
 function* mySaga() {
-    yield takeEvery("LOAD_MAP", loadMapSaga)
-    yield takeEvery("SET_PLAYER_POSITION", setPlayerPositionSaga)
+    yield takeEvery('LOAD_MAP', loadMapSaga)
+    yield takeEvery('SET_PLAYER_POSITION', setPlayerPositionSaga)
 }
 
 export default mySaga

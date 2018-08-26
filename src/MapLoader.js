@@ -11,13 +11,13 @@ class MapLoader {
             .then(response => {
                 response.json().then(async (map) => {
                     const layersByName = this.loadLayers(map.layers)
-                    const { gidStyles, gidProperties } = await this.loadGidStylesAndProperties(map.tilesets)
+                    const {gidStyles, gidProperties} = await this.loadGidStylesAndProperties(map.tilesets)
 
                     this.loadMap({
                         ...map,
-                        layersByName: layersByName,
-                        gidStyles: gidStyles,
                         gidProperties: gidProperties,
+                        gidStyles: gidStyles,
+                        layersByName: layersByName,
                     })
                 })
             })
@@ -26,7 +26,7 @@ class MapLoader {
     loadLayers(layers) {
         let layersByName = {}
         for (const layer of layers) {
-            layersByName[layer['name']] = layer
+            layersByName[layer.name] = layer
         }
         return layersByName
     }
@@ -50,8 +50,8 @@ class MapLoader {
 
                     gidStyles[firstgid + i] = {
                         background: `url('${tilesetDetails.image}') no-repeat ${xoff} ${yoff}`,
-                        width: tilesetDetails.tilewidth,
                         height: tilesetDetails.tileheight,
+                        width: tilesetDetails.tilewidth,
                     }
                 }
 
@@ -68,8 +68,8 @@ class MapLoader {
         }
 
         return {
+            gidProperties: gidProperties,
             gidStyles: gidStyles,
-            gidProperties: gidProperties
         }
     }
 

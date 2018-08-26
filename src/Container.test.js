@@ -14,7 +14,7 @@ test('without dependency', () => {
 });
 
 test('ordered dependency', () => {
-    let c = new Container()
+    let container = new Container()
     let called1 = false
     let called2 = false
 
@@ -31,18 +31,18 @@ test('ordered dependency', () => {
         }
     }
 
-    c.share('MyService2', () => new Class2())
-    c.share('MyService1', (c) => new Class1(c.get('MyService2')))
+    container.share('MyService2', () => new Class2())
+    container.share('MyService1', (c) => new Class1(c.get('MyService2')))
 
-    let myService1 = c.get('MyService1')
-    let myService1Again = c.get('MyService1')
+    let myService1 = container.get('MyService1')
+    let myService1Again = container.get('MyService1')
     expect(called1).toBe(true)
     expect(called2).toBe(true)
     expect(myService1).toBe(myService1Again)
 })
 
 test('unordered dependency', () => {
-    let c = new Container()
+    let container = new Container()
     let called1 = false
     let called2 = false
 
@@ -59,11 +59,11 @@ test('unordered dependency', () => {
         }
     }
 
-    c.share('MyService1', (c) => new Class1(c.get('MyService2')))
-    c.share('MyService2', () => new Class2())
+    container.share('MyService1', (c) => new Class1(c.get('MyService2')))
+    container.share('MyService2', () => new Class2())
 
-    let myService1 = c.get('MyService1')
-    let myService1Again = c.get('MyService1')
+    let myService1 = container.get('MyService1')
+    let myService1Again = container.get('MyService1')
     expect(called1).toBe(true)
     expect(called2).toBe(true)
     expect(myService1).toBe(myService1Again)
