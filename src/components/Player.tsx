@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
 class Player extends React.Component {
-    render() {
+    public render() {
         return (
             <div className="char player t_0"/>
         );
