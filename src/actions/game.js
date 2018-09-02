@@ -1,25 +1,22 @@
-export const DIRECTION = {
-    'down': 1,
-    'up': 0,
-
-    'left': 2,
-    'right': 3,
-}
-
-export const setPlayerPosition = (x, y) => ({
+"use strict";
+exports.__esModule = true;
+var Direction;
+(function (Direction) {
+    Direction[Direction["down"] = 0] = "down";
+    Direction[Direction["up"] = 1] = "up";
+    Direction[Direction["left"] = 2] = "left";
+    Direction[Direction["right"] = 3] = "right";
+})(Direction = exports.Direction || (exports.Direction = {}));
+exports.setPlayerPosition = function (x, y) { return ({
     type: 'SET_PLAYER_POSITION',
-
     x: x,
-    y: y,
-})
-
-export const movePlayer = (x, y) => ({
+    y: y
+}); };
+exports.movePlayer = function (x, y) { return ({
     type: 'MOVE_PLAYER',
-
     x: x,
-    y: y,
-})
-
+    y: y
+}); };
 /*
 export const placeObjectByName = (name, x, y) => ({
     type: 'PLACE_OBJECT_BY_NAME',
@@ -28,15 +25,11 @@ export const placeObjectByName = (name, x, y) => ({
     y: y,
 })
 */
-
-export const loadMap = map => ({
+exports.loadMap = function (map) { return ({
     type: 'LOAD_MAP',
-
-    map: map,
-})
-
-export const loadObjects = objectsByPosition => ({
+    map: map
+}); };
+exports.loadObjects = function (objectsByPosition) { return ({
     type: 'LOAD_OBJECTS',
-
-    objectsByPosition: objectsByPosition,
-})
+    objectsByPosition: objectsByPosition
+}); };

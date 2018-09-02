@@ -1,6 +1,6 @@
 import {convert1to2, pixelsToCoords} from './coordConverter'
 
-class MapLoader {
+export class MapLoader {
     constructor(loadMap, setPlayerPosition) {
         this.loadMap = loadMap
         this.setPlayerPosition = setPlayerPosition
@@ -88,5 +88,3 @@ class MapLoader {
         */
     }
 }
-
-export default MapLoader

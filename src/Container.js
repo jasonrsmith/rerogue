@@ -1,7 +1,7 @@
 /**
  * A happy little IoC Container :)
  */
-class Container {
+export class Container {
     constructor() {
         this.definitions = {}
         this.shared = {}
@@ -24,5 +24,3 @@ class Container {
         return this.shared[name]
     }
 }
-
-export default Container

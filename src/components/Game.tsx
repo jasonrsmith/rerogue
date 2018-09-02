@@ -1,17 +1,24 @@
-import React from 'react'
-import * as ReactDOM from 'react-dom'
-import {DIRECTION} from '../actions/game'
-import Player from './Player'
+import * as React from 'react'
 import {TILE_SIZE_PX} from '../coordConverter'
+import {MapLoader} from '../MapLoader'
+import {IBoardComponentProps} from './Board'
+import {Player} from './Player'
 
-export default (Board, mapLoader) =>
-    class Game extends React.Component {
-        constructor(props) {
+export interface IGameComponentProps {
+    height: number
+    width: number
+    player: any
+    mapLoader: MapLoader
+}
+
+export const createGameComponent = (Board: React.ComponentType<IBoardComponentProps>, mapLoader: MapLoader) =>
+    class Game extends React.Component<IGameComponentProps> {
+        constructor(props: IGameComponentProps) {
             super(props)
             mapLoader.load('dungeon-map.json')
         }
 
-        render() {
+        public render() {
             const height = this.props.height
             const width = this.props.width
 
@@ -33,42 +40,41 @@ export default (Board, mapLoader) =>
 
             return (
                 <div className="game-container"
-                     ref=""
-                     tabIndex="0"
-                     onKeyDown={(e) => this.onKeyPressed(e)}
+                    /*                     tabIndex="0"
+                    /!*                     ref=""*!/
+                    /!*                     onKeyDown={(e) => this.onKeyPressed(e)}*!/*/
                 >
                     <div
-                        ref="camera"
                         className="camera"
                         style={pStyle}
                     >
                         <div
                             className="game-board"
                         >
-                            <Board/>
+                            <Board height={this.props.height} width={this.props.width}/>
                         </div>
-                        <div className="game-info">
-                        </div>
+                        <div className="game-info"/>
                     </div>
                     <Player/>
                 </div>
             )
         }
+    }
 
-        onKeyPressed(e) {
+/*        onKeyPressed(e) {
             let direction
             switch (e.key) {
                 case 'ArrowUp':
-                    direction = DIRECTION.up
+                    direction = Direction.up
                     break
                 case 'ArrowDown':
-                    direction = DIRECTION.down
+                    direction = Direction.down
                     break
                 case 'ArrowLeft':
-                    direction = DIRECTION.left
+                    direction = Direction.left
                     break
                 case 'ArrowRight':
-                    direction = DIRECTION.right
+                    direction = Direction.right
                     break
                 default:
             }
@@ -79,45 +85,46 @@ export default (Board, mapLoader) =>
             const x = this.props.player.x
             const y = this.props.player.y
             switch (direction) {
-                case DIRECTION.up:
+                case Direction.up:
                     return this.props.setPlayerPosition(x, y - 1)
-                case DIRECTION.down:
+                case Direction.down:
                     return this.props.setPlayerPosition(x, y + 1)
-                case DIRECTION.left:
+                case Direction.left:
                     return this.props.setPlayerPosition(x - 1, y)
-                case DIRECTION.right:
+                case Direction.right:
                     return this.props.setPlayerPosition(x + 1, y)
                 default:
             }
-        }
+        }*/
+/*
 
         componentDidMount() {
-            this.focusDiv()
+            //this.focusDiv()
         }
 
         componentDidUpdate() {
-            this.focusDiv()
+            //this.focusDiv()
         }
+*/
 
-        /*
-        componentDidMount() {
-            this.updateWindowDimensions();
-            window.addEventListener('resize', this.updateWindowDimensions);
-        }
+/*
+componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+}
 
-        componentWillUnmount() {
-            window.removeEventListener('resize', this.updateWindowDimensions);
-        }
+componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+}
 
-        updateWindowDimensions() {
-            this.setState({ width: window.innerWidth, height: window.innerHeight });
-        }
-        */
+updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+}
+*/
 
-        focusDiv() {
+/*        focusDiv() {
             const container = ReactDOM.findDOMNode(this.refs.container)
             if (container) {
                 container.focus()
             }
-        }
-    }
+        }*/
