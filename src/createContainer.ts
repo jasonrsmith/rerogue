@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
 import {Store} from 'redux'
-import {loadMap, setPlayerPosition} from './actions/game'
+import {IPositionXY, loadMap, setPlayerPosition} from './actions/game'
 import {createBoardComponent} from './components/Board'
 import {createGameComponent} from './components/Game'
 import {createTileComponent, ITileComponentProps} from './components/Tile'
 import {Container} from './Container'
 import {convert2to1} from './coordConverter'
-import {MapLoader} from './MapLoader'
+import {createMapLoader} from './MapLoader'
 
 const getStyleForGid = (gid: number, state: any) => {
     return state.map.gidStyles[gid]
@@ -50,10 +50,10 @@ export default (store: Store) => {
         },
     )(createTileComponent((gid) => getStyleForGid(gid, store.getState()))))
 
-    container.share('MapLoader', () => new MapLoader(
+    container.share('MapLoader', () => new (createMapLoader(
         (map: any) => store.dispatch(loadMap(map)),
-        (x: number, y: number) => store.dispatch(setPlayerPosition({x, y})),
-    ))
+        (pos: IPositionXY) => store.dispatch(setPlayerPosition(pos)),
+    )))
 
     // container.share(MovementInput.name, () => connect(
     // )(MovementInput((charController: CharacterController) => container.get(''))))

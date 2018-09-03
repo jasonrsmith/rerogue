@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {TILE_SIZE_PX} from '../coordConverter'
-import {MapLoader} from '../MapLoader'
+import {IMapLoader} from '../MapLoader'
 import {IBoardComponentProps} from './Board'
 import {Player} from './Player'
 
@@ -8,10 +8,12 @@ export interface IGameComponentProps {
     height: number
     width: number
     player: any
-    mapLoader: MapLoader
 }
 
-export const createGameComponent = (Board: React.ComponentType<IBoardComponentProps>, mapLoader: MapLoader) =>
+export const createGameComponent = (
+    Board: React.ComponentType<IBoardComponentProps>,
+    mapLoader: IMapLoader,
+) =>
     class Game extends React.Component<IGameComponentProps> {
         constructor(props: IGameComponentProps) {
             super(props)

@@ -21,7 +21,7 @@ export const actions = strEnum([
 
 export const setPlayerPosition = (pos: IPositionXY) => action(actions.SET_PLAYER_POSITION, pos)
 export const movePlayer = (pos: IPositionXY) => action(actions.MOVE_PLAYER, pos)
-export const loadMap = (name: string) => action(actions.LOAD_MAP, name)
+export const loadMap = (map: any) => action(actions.LOAD_MAP, map)
 export const loadObjects = (objects: object[]) => action(actions.LOAD_OBJECTS, objects)
 
 function strEnum<T extends string>(o: T[]): {[K in T]: K} {

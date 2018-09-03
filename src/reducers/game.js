@@ -17,21 +17,21 @@ const game = (state = initialState, action) => {
                 ...state,
                 player: {
                     ...state.player,
-                    x: action.x,
-                    y: action.y,
+                    x: action.payload.x,
+                    y: action.payload.y,
                 },
             }
             break
         case 'LOAD_MAP':
             state = {
                 ...state,
-                map: action.map,
+                map: action.payload,
             }
             break
         case 'LOAD_OBJECTS':
             state = {
                 ...state,
-                objectsByPosition: action.objectsByPosition,
+                objectsByPosition: action.payload,
             }
             break
         default:
