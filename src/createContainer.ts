@@ -24,7 +24,7 @@ export default (store: Store) => {
             return props
         },
         dispatch => ({
-            setPlayerPosition: (x: number, y: number) => dispatch(setPlayerPosition(x, y)),
+            setPlayerPosition: (x: number, y: number) => dispatch(setPlayerPosition({x, y})),
         }),
     )(createGameComponent(c.get('Board'), c.get('MapLoader'))))
 
@@ -52,7 +52,7 @@ export default (store: Store) => {
 
     container.share('MapLoader', () => new MapLoader(
         (map: any) => store.dispatch(loadMap(map)),
-        (x: number, y: number) => store.dispatch(setPlayerPosition(x, y)),
+        (x: number, y: number) => store.dispatch(setPlayerPosition({x, y})),
     ))
 
     // container.share(MovementInput.name, () => connect(
