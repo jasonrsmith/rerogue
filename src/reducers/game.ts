@@ -1,3 +1,5 @@
+import {IAction} from '../actions/game'
+
 const initialState = {
     player: {
         x: 0,
@@ -8,7 +10,7 @@ const initialState = {
     },
 }
 
-const game = (state = initialState, action) => {
+const game = (state: any = initialState, action: IAction) => {
     console.log('action:', action)
     console.log('beforestate:', state)
     switch (action.type) {

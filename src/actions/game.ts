@@ -12,6 +12,12 @@ export interface IPositionXY {
     y: number
 }
 
+export interface IAction {
+    type: string,
+    payload: any,
+    meta: any,
+}
+
 export const actions = strEnum([
     'SET_PLAYER_POSITION',
     'MOVE_PLAYER',
