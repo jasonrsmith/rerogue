@@ -5,9 +5,9 @@ import {IBoardComponentProps} from './Board'
 import {Player} from './Player'
 
 export interface IGameComponentProps {
-    height: number
-    width: number
-    player: any
+    height?: number
+    width?: number
+    player?: any
 }
 
 export const createGameComponent = (
@@ -24,7 +24,7 @@ export const createGameComponent = (
             const height = this.props.height
             const width = this.props.width
 
-            if (!height || !width) {
+            if (height === undefined || width === undefined) {
                 return <div/>
             }
 
@@ -53,7 +53,7 @@ export const createGameComponent = (
                         <div
                             className="game-board"
                         >
-                            <Board height={this.props.height} width={this.props.width}/>
+                            <Board height={height} width={width}/>
                         </div>
                         <div className="game-info"/>
                     </div>
