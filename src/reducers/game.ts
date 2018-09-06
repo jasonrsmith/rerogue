@@ -1,6 +1,15 @@
-import {IAction} from '../actions/game'
+import {actions, IAction} from '../actions/game'
+import {IState} from '../model'
 
 const initialState = {
+    map: {
+        height: 0,
+        width: 0,
+
+        // TODO remove this
+        layersByName: {},
+    },
+    objectsByPosition: [],
     player: {
         x: 0,
         y: 0,
@@ -8,13 +17,14 @@ const initialState = {
         attack: 1,
         health: 1,
     },
+
 }
 
-const game = (state: any = initialState, action: IAction) => {
+const game = (state: IState = initialState, action: IAction<any>) => {
     console.log('action:', action)
     console.log('beforestate:', state)
     switch (action.type) {
-        case 'MOVE_PLAYER':
+        case actions.MOVE_PLAYER:
             state = {
                 ...state,
                 player: {
@@ -24,13 +34,13 @@ const game = (state: any = initialState, action: IAction) => {
                 },
             }
             break
-        case 'LOAD_MAP':
+        case actions.LOAD_MAP:
             state = {
                 ...state,
                 map: action.payload,
             }
             break
-        case 'LOAD_OBJECTS':
+        case actions.LOAD_OBJECTS:
             state = {
                 ...state,
                 objectsByPosition: action.payload,

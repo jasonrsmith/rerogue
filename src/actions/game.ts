@@ -1,4 +1,5 @@
 import {action} from 'typesafe-actions'
+import {strEnum} from '../util'
 
 export enum Direction {
     'down',
@@ -12,9 +13,9 @@ export interface IPositionXY {
     y: number
 }
 
-export interface IAction {
+export interface IAction<PayloadType>{
     type: string,
-    payload: any,
+    payload: PayloadType,
     meta: any,
 }
 
@@ -29,10 +30,3 @@ export const setPlayerPosition = (pos: IPositionXY) => action(actions.SET_PLAYER
 export const movePlayer = (pos: IPositionXY) => action(actions.MOVE_PLAYER, pos)
 export const loadMap = (map: any) => action(actions.LOAD_MAP, map)
 export const loadObjects = (objects: object[]) => action(actions.LOAD_OBJECTS, objects)
-
-function strEnum<T extends string>(o: T[]): {[K in T]: K} {
-    return o.reduce((res, key) => {
-        res[key] = key
-        return res
-    }, Object.create(null))
-}
