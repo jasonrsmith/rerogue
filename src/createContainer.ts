@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {connect} from 'react-redux'
 import {Store} from 'redux'
 import {IPositionXY, mapLoaded, setPlayerPosition} from './actions/game'
@@ -8,16 +7,16 @@ import {createTileComponent, ITileComponentProps} from './components/Tile'
 import {Container} from './container/Container'
 import {convert2to1} from './coordConverter'
 import {createMapLoader} from './MapLoader'
-import {IMap, IState} from './model'
+import {IState} from './model'
 
 const getStyleForGid = (gid: number, state: IState) => {
-    return state.gidStyles[gid]
+    return state.map.gidStyles[gid]
 }
 
 export default (store: Store) => {
     const container = new Container()
 
-    container.share<React.ComponentType<IGameComponentProps>>('Game', (c: Container) => connect(
+    container.share('Game', (c: Container) => connect<IGameComponentProps>(
         (state: IState) => {
             const props = {player: state.player}
             if (state.map) {
@@ -30,20 +29,15 @@ export default (store: Store) => {
         }),
     )(createGameComponent(c.get('Board'), c.get('MapLoader'))))
 
-    container.share<React.ComponentType<IBoardComponentProps>>('Board', (c: Container) => connect(
+    container.share('Board', (c: Container) => connect<IBoardComponentProps>(
         (state: IState) => {
-            if (state.map) {
-                return {width: state.map.width, height: state.map.height}
-            }
-            else {
-                return {}
-            }
+            return {width: state.map.width, height: state.map.height}
         },
     )(createBoardComponent(c.get('Tile'))))
 
     container.share('Tile', () => connect(
-        (state: IState, props: ITileComponentProps) => {
-            if (!state.map.layersByName.background.data) {
+        (state: any, props: ITileComponentProps) => {
+            if (!state.map) {
                 return {}
             }
             return {
@@ -53,7 +47,7 @@ export default (store: Store) => {
     )(createTileComponent((gid) => getStyleForGid(gid, store.getState()))))
 
     container.share('MapLoader', () => new (createMapLoader(
-        (map: IMap) => store.dispatch(mapLoaded(map)),
+        (map: any) => store.dispatch(mapLoaded(map)),
         (pos: IPositionXY) => store.dispatch(setPlayerPosition(pos)),
     )))
 

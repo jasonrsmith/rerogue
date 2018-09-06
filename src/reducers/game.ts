@@ -7,6 +7,7 @@ const initialState = {
         width: 0,
 
         // TODO remove this
+        gidStyles: [],
         layersByName: {},
     },
     objectsByPosition: [],
