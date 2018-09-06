@@ -4,7 +4,7 @@ import {IPositionXY, loadMap, setPlayerPosition} from './actions/game'
 import {createBoardComponent} from './components/Board'
 import {createGameComponent} from './components/Game'
 import {createTileComponent, ITileComponentProps} from './components/Tile'
-import {Container} from './Container'
+import {Container} from './container/Container'
 import {convert2to1} from './coordConverter'
 import {createMapLoader} from './MapLoader'
 

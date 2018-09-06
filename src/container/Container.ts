@@ -1,22 +1,24 @@
 /**
  * A happy little IoC Container :)
  */
+import {DefinitionMissingError} from './DefinitionMissingError'
+
 export class Container {
+    private readonly definitions: object
+    private readonly shared: object
+
     constructor() {
         this.definitions = {}
         this.shared = {}
     }
 
-    share(name, callback) {
+    public share<T>(name: string, callback: (c: Container) => T) {
         this.definitions[name] = callback
     }
 
-    get(name) {
+    public get(name: string) {
         if (!this.definitions.hasOwnProperty(name)) {
-            let e = Error(`Container could not retrieve undefined definition for '${name}'`)
-            e.name = 'DefinitionMissing'
-            e.definitionName = name
-            throw e
+            throw new DefinitionMissingError(name)
         }
         if (!this.shared[name]) {
             this.shared[name] = this.definitions[name](this)

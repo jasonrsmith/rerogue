@@ -1,32 +1,33 @@
 import {Container} from './Container'
 
 test('without dependency', () => {
-    let c = new Container()
+    const c = new Container()
     let called = false
-    let callback = () => {
+    const callback = () => {
         called = true
         return 'myservice'
     }
     c.share('MyService', callback)
-    let myService = c.get('MyService')
+    const myService = c.get('MyService')
     expect(called).toBe(true)
     expect(myService).toBe('myservice')
 });
 
+/* tslint:disable:max-classes-per-file */
 test('ordered dependency', () => {
-    let container = new Container()
+    const container = new Container()
     let called1 = false
     let called2 = false
 
-    let Class1 = class {
-        constructor(myservice2) {
+    const Class1 = class {
+        constructor(myservice2: any) {
             called1 = true
             myservice2.myfunc()
         }
     }
 
-    let Class2 = class {
-        myfunc() {
+    const Class2 = class {
+        public myfunc() {
             called2 = true
         }
     }
@@ -34,27 +35,28 @@ test('ordered dependency', () => {
     container.share('MyService2', () => new Class2())
     container.share('MyService1', (c) => new Class1(c.get('MyService2')))
 
-    let myService1 = container.get('MyService1')
-    let myService1Again = container.get('MyService1')
+    const myService1 = container.get('MyService1')
+    const myService1Again = container.get('MyService1')
     expect(called1).toBe(true)
     expect(called2).toBe(true)
     expect(myService1).toBe(myService1Again)
 })
 
+/* tslint:disable:max-classes-per-file */
 test('unordered dependency', () => {
-    let container = new Container()
+    const container = new Container()
     let called1 = false
     let called2 = false
 
-    let Class1 = class {
-        constructor(myservice2) {
+    const Class1 = class {
+        constructor(myservice2: any) {
             called1 = true
             myservice2.myfunc()
         }
     }
 
-    let Class2 = class {
-        myfunc() {
+    const Class2 = class {
+        public myfunc() {
             called2 = true
         }
     }
@@ -62,16 +64,16 @@ test('unordered dependency', () => {
     container.share('MyService1', (c) => new Class1(c.get('MyService2')))
     container.share('MyService2', () => new Class2())
 
-    let myService1 = container.get('MyService1')
-    let myService1Again = container.get('MyService1')
+    const myService1 = container.get('MyService1')
+    const myService1Again = container.get('MyService1')
     expect(called1).toBe(true)
     expect(called2).toBe(true)
     expect(myService1).toBe(myService1Again)
 })
 
 test('throws error for missing def', () => {
-    let c = new Container()
-    let unknownName = 'UnknownThing'
+    const c = new Container()
+    const unknownName = 'UnknownThing'
     let actualMissingName = ''
     try {
         c.get(unknownName)
