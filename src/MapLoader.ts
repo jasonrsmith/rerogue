@@ -2,13 +2,14 @@ import {IPositionXY} from './actions/game'
 import {convert1to2} from './coordConverter'
 
 import {CSSProperties} from 'react'
+import {IMap} from './model'
 
 export interface IMapLoader {
     load(mapFile: string): void
 }
 
 export const createMapLoader = (
-    loadMap: (map: any) => void,
+    dispatchMapLoaded: (map: IMap) => void,
     setPlayerPosition: (pos: IPositionXY) => void,
 ) =>
     class MapLoader implements IMapLoader {
@@ -18,7 +19,7 @@ export const createMapLoader = (
                     response.json().then(async (map) => {
                         const layersByName = this.loadLayers(map.layers)
                         const {gidStyles, gidProperties} = await this.loadGidStylesAndProperties(map.tilesets)
-                        loadMap({
+                        dispatchMapLoaded({
                             ...map,
                             gidProperties,
                             gidStyles,

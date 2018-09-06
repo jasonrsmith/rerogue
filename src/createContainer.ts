@@ -1,22 +1,24 @@
+import * as React from 'react'
 import {connect} from 'react-redux'
 import {Store} from 'redux'
-import {IPositionXY, loadMap, setPlayerPosition} from './actions/game'
-import {createBoardComponent} from './components/Board'
-import {createGameComponent} from './components/Game'
+import {IPositionXY, mapLoaded, setPlayerPosition} from './actions/game'
+import {createBoardComponent, IBoardComponentProps} from './components/Board'
+import {createGameComponent, IGameComponentProps} from './components/Game'
 import {createTileComponent, ITileComponentProps} from './components/Tile'
 import {Container} from './container/Container'
 import {convert2to1} from './coordConverter'
 import {createMapLoader} from './MapLoader'
+import {IMap, IState} from './model'
 
-const getStyleForGid = (gid: number, state: any) => {
-    return state.map.gidStyles[gid]
+const getStyleForGid = (gid: number, state: IState) => {
+    return state.gidStyles[gid]
 }
 
 export default (store: Store) => {
     const container = new Container()
 
-    container.share('Game', (c: Container) => connect(
-        (state: any) => {
+    container.share<React.ComponentType<IGameComponentProps>>('Game', (c: Container) => connect(
+        (state: IState) => {
             const props = {player: state.player}
             if (state.map) {
                 return {...props, width: state.map.width, height: state.map.height}
@@ -28,8 +30,8 @@ export default (store: Store) => {
         }),
     )(createGameComponent(c.get('Board'), c.get('MapLoader'))))
 
-    container.share('Board', (c: Container) => connect(
-        (state: any) => {
+    container.share<React.ComponentType<IBoardComponentProps>>('Board', (c: Container) => connect(
+        (state: IState) => {
             if (state.map) {
                 return {width: state.map.width, height: state.map.height}
             }
@@ -40,8 +42,8 @@ export default (store: Store) => {
     )(createBoardComponent(c.get('Tile'))))
 
     container.share('Tile', () => connect(
-        (state: any, props: ITileComponentProps) => {
-            if (!state.map) {
+        (state: IState, props: ITileComponentProps) => {
+            if (!state.map.layersByName.background.data) {
                 return {}
             }
             return {
@@ -51,7 +53,7 @@ export default (store: Store) => {
     )(createTileComponent((gid) => getStyleForGid(gid, store.getState()))))
 
     container.share('MapLoader', () => new (createMapLoader(
-        (map: any) => store.dispatch(loadMap(map)),
+        (map: IMap) => store.dispatch(mapLoaded(map)),
         (pos: IPositionXY) => store.dispatch(setPlayerPosition(pos)),
     )))
 

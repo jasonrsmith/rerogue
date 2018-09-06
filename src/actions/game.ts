@@ -1,4 +1,5 @@
 import {action} from 'typesafe-actions'
+import {IMap} from '../model'
 import {strEnum} from '../util'
 
 export enum Direction {
@@ -28,5 +29,5 @@ export const actions = strEnum([
 
 export const setPlayerPosition = (pos: IPositionXY) => action(actions.SET_PLAYER_POSITION, pos)
 export const movePlayer = (pos: IPositionXY) => action(actions.MOVE_PLAYER, pos)
-export const loadMap = (map: any) => action(actions.LOAD_MAP, map)
+export const mapLoaded = (map: IMap) => action(actions.LOAD_MAP, map)
 export const loadObjects = (objects: object[]) => action(actions.LOAD_OBJECTS, objects)
