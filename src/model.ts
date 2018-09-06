@@ -38,8 +38,8 @@ export interface ILayersDict {
 
 export interface IMap {
     // TODO have array of arrays of entities for layers
-    gidProperties?: IEntity[] // TODO rename gidProperties to entities
-    gidStyles?: CSSProperties[] // TODO rename gidStlyes to backgroundStyles
+    entities?: IEntity[]
+    gidStyles?: CSSProperties[]
     // TODO incorporate styles into entities
     // TODO move entities to state
 

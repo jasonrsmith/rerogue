@@ -8,8 +8,8 @@ function* loadMapSaga(action: IAction<IMap>) {
     const objectsByPosition = Array(map.height * map.width)
     if (map.layersByName.meta.data) {
         const metaDefs: number[] = map.layersByName.meta.data
-        if (map.gidProperties) { // TODO remove this
-            const gidProperties = map.gidProperties
+        if (map.entities) { // TODO remove this
+            const gidProperties = map.entities
             for (let i = 0; i < metaDefs.length; i++) {
                 objectsByPosition[i] = gidProperties[metaDefs[i]]
             }
