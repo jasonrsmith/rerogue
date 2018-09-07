@@ -1,5 +1,5 @@
 import {put, select, takeEvery} from 'redux-saga/effects'
-import {IAction, IPositionXY, loadObjects, movePlayer, setPlayerPosition} from './actions/game'
+import {actions, IAction, IPositionXY, loadObjects, movePlayer, setPlayerPosition} from './actions'
 import {convert2to1, pixelsToCoords} from './coordConverter'
 import {IMap, IState} from './model'
 
@@ -45,9 +45,7 @@ function* setPlayerPositionSaga(action: IAction<IPositionXY>) {
     yield put(movePlayer({x: action.payload.x, y: action.payload.y}))
 }
 
-function* mySaga() {
-    yield takeEvery('LOAD_MAP', loadMapSaga)
-    yield takeEvery('SET_PLAYER_POSITION', setPlayerPositionSaga)
+export function* initGameSaga() {
+    yield takeEvery(actions.MAP_LOADED, loadMapSaga)
+    yield takeEvery(actions.SET_PLAYER_POSITION, setPlayerPositionSaga)
 }
-
-export default mySaga

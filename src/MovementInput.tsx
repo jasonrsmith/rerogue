@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Direction} from './actions/game'
+import {Direction} from './actions'
 import {CharacterController} from './CharacterController'
 
 export const createMovementInputComponent = (charController: CharacterController) =>

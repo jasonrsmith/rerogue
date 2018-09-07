@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {Store} from 'redux'
-import {IPositionXY, mapLoaded, setPlayerPosition} from './actions/game'
+import {IPositionXY, mapLoaded, setPlayerPosition} from './actions'
 import {createBoardComponent, IBoardComponentProps} from './components/Board'
 import {createGameComponent, IGameComponentProps} from './components/Game'
 import {createTileComponent, ITileComponentProps} from './components/Tile'

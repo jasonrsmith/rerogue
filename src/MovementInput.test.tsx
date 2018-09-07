@@ -2,7 +2,7 @@ import { Substitute } from '@fluffy-spoon/substitute'
 import {configure, shallow} from 'enzyme'
 import * as ReactSixteenAdapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-import {Direction} from './actions/game'
+import {Direction} from './actions'
 import {CharacterController} from './CharacterController'
 import {createMovementInputComponent} from './MovementInput'
 

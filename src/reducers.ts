@@ -1,5 +1,5 @@
-import {actions, IAction} from '../actions/game'
-import {IState} from '../model'
+import {actions, IAction} from './actions'
+import {IState} from './model'
 
 const initialState = {
     map: {
@@ -21,7 +21,7 @@ const initialState = {
 
 }
 
-const game = (state: IState = initialState, action: IAction<any>) => {
+export const reducers = (state: IState = initialState, action: IAction<any>) => {
     console.log('action:', action)
     console.log('beforestate:', state)
     switch (action.type) {
@@ -35,7 +35,7 @@ const game = (state: IState = initialState, action: IAction<any>) => {
                 },
             }
             break
-        case actions.LOAD_MAP:
+        case actions.MAP_LOADED:
             state = {
                 ...state,
                 map: action.payload,
@@ -52,5 +52,3 @@ const game = (state: IState = initialState, action: IAction<any>) => {
     console.log('newstate:', state)
     return state
 }
-
-export default game

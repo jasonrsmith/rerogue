@@ -1,4 +1,4 @@
-import {Direction} from './actions/game'
+import {Direction} from './actions'
 
 export class CharacterController {
     public move(direction: Direction) {

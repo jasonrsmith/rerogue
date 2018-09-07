@@ -1,4 +1,4 @@
-import {IPositionXY} from './actions/game'
+import {IPositionXY} from './actions'
 import {convert1to2} from './coordConverter'
 
 import {CSSProperties} from 'react'
