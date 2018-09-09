@@ -1,15 +1,13 @@
 import {connect} from 'react-redux'
 import {Store} from 'redux'
-import {IPositionXY, mapLoaded, setPlayerPosition} from './actions'
-import {createBoardComponent, IBoardComponentProps} from './components/Board'
+import {Direction, movementInputReceived} from './actions'
+import {Board, IBoardComponentProps} from './components/Board'
 import {createGameComponent, IGameComponentProps} from './components/Game'
-import {createTileComponent, ITileComponentProps} from './components/Tile'
+import {MovementInput} from './components/MovementInput'
 import {Container} from './container/Container'
-import {convert2to1} from './coordConverter'
-import {createMapLoader} from './MapLoader'
 import {IState} from './model'
 
-const getStyleForGid = (gid: number, state: IState) => {
+const getStyleForGid = (state: IState, gid: number) => {
     return state.map.gidStyles[gid]
 }
 
@@ -24,35 +22,31 @@ export default (store: Store) => {
             }
             return props
         },
-        dispatch => ({
-            setPlayerPosition: (x: number, y: number) => dispatch(setPlayerPosition({x, y})),
-        }),
-    )(createGameComponent(c.get('Board'), c.get('MapLoader'))))
+    )(createGameComponent(c.get('Board'), c.get('MovementInput'))))
 
     container.share('Board', (c: Container) => connect<IBoardComponentProps>(
         (state: IState) => {
-            return {width: state.map.width, height: state.map.height}
-        },
-    )(createBoardComponent(c.get('Tile'))))
-
-    container.share('Tile', () => connect(
-        (state: any, props: ITileComponentProps) => {
-            if (!state.map) {
-                return {}
-            }
             return {
-                backgroundGid: state.map.layersByName.background.data[convert2to1(props.x, props.y, state.map.width)],
+                getStyleForPos: (pos: number) => {
+                    if (state.map.layersByName.background.data) {
+                        const gid = state.map.layersByName.background.data[pos]
+                        return getStyleForGid(state, gid)
+                    }
+                    return {}
+                },
+                height: state.map.height,
+                width: state.map.width,
             }
         },
-    )(createTileComponent((gid) => getStyleForGid(gid, store.getState()))))
+    )(Board))
 
-    container.share('MapLoader', () => new (createMapLoader(
-        (map: any) => store.dispatch(mapLoaded(map)),
-        (pos: IPositionXY) => store.dispatch(setPlayerPosition(pos)),
-    )))
+    container.share('MovementInput', (c) => connect(
+        null,
+        {
+             dispatchMovementInputReceived: (direction: Direction) => store.dispatch(movementInputReceived(direction)),
+        },
+    )(MovementInput))
 
-    // container.share(MovementInput.name, () => connect(
-    // )(MovementInput((charController: CharacterController) => container.get(''))))
 
     return container
 }

@@ -1,9 +1,20 @@
-import {put, select, takeEvery} from 'redux-saga/effects'
-import {actions, IAction, IPositionXY, loadObjects, movePlayer, setPlayerPosition} from './actions'
+import {call, put, select, takeEvery} from 'redux-saga/effects'
+import {actions, IAction, IPositionXY, loadMap, loadObjects, mapLoaded, movePlayer, setPlayerPosition} from './actions'
 import {convert2to1, pixelsToCoords} from './coordConverter'
+import {fetchMap} from './fetchMap'
 import {IMap, IState} from './model'
 
-function* loadMapSaga(action: IAction<IMap>) {
+function* initGameSaga() {
+    yield put(loadMap('dungeon-map.json'))
+}
+
+function* loadMapSaga(action: IAction<string>) {
+    const mapName = action.payload
+    const map = yield call(fetchMap, mapName)
+    yield put(mapLoaded(map))
+}
+
+function* mapLoadedSaga(action: IAction<IMap>) {
     const map = action.payload
     const objectsByPosition = Array(map.height * map.width)
     if (map.layersByName.meta.data) {
@@ -45,7 +56,9 @@ function* setPlayerPositionSaga(action: IAction<IPositionXY>) {
     yield put(movePlayer({x: action.payload.x, y: action.payload.y}))
 }
 
-export function* initGameSaga() {
-    yield takeEvery(actions.MAP_LOADED, loadMapSaga)
+export function* setupSagas() {
+    yield takeEvery(actions.INIT, initGameSaga)
+    yield takeEvery(actions.LOAD_MAP, loadMapSaga)
+    yield takeEvery(actions.MAP_LOADED, mapLoadedSaga)
     yield takeEvery(actions.SET_PLAYER_POSITION, setPlayerPositionSaga)
 }

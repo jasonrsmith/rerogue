@@ -1,7 +1,5 @@
 import * as React from 'react'
 import {TILE_SIZE_PX} from '../coordConverter'
-import {IMapLoader} from '../MapLoader'
-import {IBoardComponentProps} from './Board'
 import {Player} from './Player'
 
 export interface IGameComponentProps {
@@ -11,15 +9,10 @@ export interface IGameComponentProps {
 }
 
 export const createGameComponent = (
-    Board: React.ComponentType<IBoardComponentProps>,
-    mapLoader: IMapLoader,
+    Board: React.ComponentType,
+    MovementInput: React.ComponentType
 ) =>
-    class Game extends React.Component<IGameComponentProps> {
-        constructor(props: IGameComponentProps) {
-            super(props)
-            mapLoader.load('dungeon-map.json')
-        }
-
+    class extends React.Component<IGameComponentProps> {
         public render() {
             const height = this.props.height
             const width = this.props.width
@@ -41,11 +34,7 @@ export const createGameComponent = (
             }
 
             return (
-                <div className="game-container"
-                    /*                     tabIndex="0"
-                    /!*                     ref=""*!/
-                    /!*                     onKeyDown={(e) => this.onKeyPressed(e)}*!/*/
-                >
+                <div className="game-container">
                     <div
                         className="camera"
                         style={pStyle}
@@ -53,11 +42,12 @@ export const createGameComponent = (
                         <div
                             className="game-board"
                         >
-                            <Board height={height} width={width}/>
+                            <Board/>
                         </div>
                         <div className="game-info"/>
                     </div>
                     <Player/>
+                    <MovementInput/>
                 </div>
             )
         }

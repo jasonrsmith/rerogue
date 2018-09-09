@@ -36,6 +36,26 @@ export interface ILayersDict {
     [layerName: string]: ILayerProps
 }
 
+export interface ITileset {
+    firstgid: number,
+    source: string
+}
+
+export interface ITilesetDetails {
+    columns: number
+    image: string
+    imageheight: number
+    imagewidth: number
+    margin: number
+    name: string
+    spacing: number
+    tilecount: number
+    tileheight: number
+    tileproperties: number
+    tilewidth: number
+    type: string
+}
+
 export interface IMap {
     // TODO have array of arrays of entities for layers
     entities?: IEntity[]
@@ -57,6 +77,7 @@ interface IPlayer {
     health: number
 }
 
+
 export interface IState {
     map: IMap
     objectsByPosition: object[]
@@ -65,3 +86,4 @@ export interface IState {
     // TODO convert player to entity
     player: IPlayer
 }
+

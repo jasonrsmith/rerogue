@@ -3,10 +3,10 @@ import {IMap} from './model'
 import {strEnum} from './util'
 
 export enum Direction {
-    'down',
-    'up',
-    'left',
-    'right',
+    down = 'down',
+    up = 'up',
+    left = 'left',
+    right = 'right',
 }
 
 export interface IPositionXY {
@@ -14,10 +14,19 @@ export interface IPositionXY {
     y: number
 }
 
-export interface IAction<PayloadType>{
+export interface IAction<PayloadType> {
     type: string,
     payload: PayloadType,
     meta: any,
+}
+
+export const createAction = (actionName: string, payload: any = undefined) => {
+    const a = action(actionName, payload)
+    return {
+        meta: null,
+        payload: null,
+        ...a,
+    }
 }
 
 export const actions = strEnum([
@@ -27,11 +36,13 @@ export const actions = strEnum([
     'MAP_LOADED',
     'MOVE_PLAYER',
     'SET_PLAYER_POSITION',
+    'MOVEMENT_INPUT_RECEIVED',
 ])
 
-export const loadMap = (mapName: string) => action(actions.LOAD_MAP, mapName)
-export const loadObjects = (objects: object[]) => action(actions.LOAD_OBJECTS, objects)
-export const mapLoaded = (map: IMap) => action(actions.MAP_LOADED, map)
-export const movePlayer = (pos: IPositionXY) => action(actions.MOVE_PLAYER, pos)
-export const setPlayerPosition = (pos: IPositionXY) => action(actions.SET_PLAYER_POSITION, pos)
-export const init = () => action(actions.INIT)
+export const loadMap = (mapName: string) => createAction(actions.LOAD_MAP, mapName)
+export const loadObjects = (objects: object[]) => createAction(actions.LOAD_OBJECTS, objects)
+export const mapLoaded = (map: IMap) => createAction(actions.MAP_LOADED, map)
+export const movePlayer = (pos: IPositionXY) => createAction(actions.MOVE_PLAYER, pos)
+export const setPlayerPosition = (pos: IPositionXY) => createAction(actions.SET_PLAYER_POSITION, pos)
+export const init = () => createAction(actions.INIT)
+export const movementInputReceived = (direction: Direction) => action(actions.MOVEMENT_INPUT_RECEIVED, direction)

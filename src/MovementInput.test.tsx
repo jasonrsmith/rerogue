@@ -1,24 +1,23 @@
-import { Substitute } from '@fluffy-spoon/substitute'
 import {configure, shallow} from 'enzyme'
 import * as ReactSixteenAdapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
 import {Direction} from './actions'
-import {CharacterController} from './CharacterController'
-import {createMovementInputComponent} from './MovementInput'
+import {MovementInput} from './components/MovementInput'
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const charController = Substitute.for<CharacterController>()
-const MovementInput = createMovementInputComponent(charController)
-
 test('char is moved on input up', () => {
-    const target = shallow(<MovementInput/>)
+    const dispatchMovementInputReceived = jest.fn()
+    const target = shallow(<MovementInput dispatchMovementInputReceived={dispatchMovementInputReceived}/>)
     target.simulate('keydown', {key: 'ArrowUp'})
-    charController.received().move(Direction.up)
+    expect(dispatchMovementInputReceived).toBeCalledWith(Direction.up)
+    expect(dispatchMovementInputReceived.mock.calls.length).toBe(1);
 })
 
 test('char is moved on input down', () => {
-    const target = shallow(<MovementInput/>)
+    const dispatchMovementInputReceived = jest.fn()
+    const target = shallow(<MovementInput dispatchMovementInputReceived={dispatchMovementInputReceived}/>)
     target.simulate('keydown', {key: 'ArrowDown'})
-    charController.received().move(Direction.down)
+    expect(dispatchMovementInputReceived).toBeCalledWith(Direction.down)
+    expect(dispatchMovementInputReceived.mock.calls.length).toBe(1);
 })

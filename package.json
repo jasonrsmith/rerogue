@@ -7,6 +7,7 @@
     "@types/enzyme": "^3.1.13",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/react-redux": "^6.0.6",
+    "@types/reselect": "^2.2.0",
     "cuid": "^2.1.4",
     "normalize": "^0.3.1",
     "normalize.css": "^8.0.0",
@@ -15,6 +16,7 @@
     "react-redux": "^5.0.7",
     "react-scripts-ts": "2.17.0",
     "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
     "rxjs": "^6.2.2",
     "typesafe-actions": "latest"
   },

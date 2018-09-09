@@ -1,23 +1,18 @@
 import * as React from 'react'
+import {CSSProperties} from 'react'
 
 export interface ITileComponentProps {
-    x: number
-    y: number
-    backgroundGid?: number
+    style?: CSSProperties
 }
 
-export const createTileComponent = (getStyleForGid: (gid: number) => React.CSSProperties) =>
-    class Tile extends React.Component<ITileComponentProps> {
-        public render() {
-            if (!this.props.backgroundGid) {
-                return (<div className="square"/>)
-            }
-
-            const pStyle = getStyleForGid(this.props.backgroundGid)
-            return (
-                <div className="square"
-                     style={pStyle}
-                />
-            )
-        }
+export const Tile: React.SFC<ITileComponentProps> = (props) => {
+    if (!props.style) {
+        return (<div className="square"/>)
     }
+
+    return (
+        <div className="square"
+             style={props.style}
+        />
+    )
+}
