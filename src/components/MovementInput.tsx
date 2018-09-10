@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Direction} from '../actions'
 
 export interface IMovementInputProps {
-    dispatchMovementInputReceived: (direction: Direction) => void
+    movementInputReceived: (direction: Direction) => void
 }
 
 export class MovementInput extends React.Component<IMovementInputProps> {
@@ -53,7 +53,7 @@ export class MovementInput extends React.Component<IMovementInputProps> {
         }
 
         if (direction !== undefined) {
-            this.props.dispatchMovementInputReceived(direction)
+            this.props.movementInputReceived(direction)
         }
     }
 

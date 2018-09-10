@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {Store} from 'redux'
-import {Direction, movementInputReceived} from './actions'
+import {movementInputReceived} from './actions'
 import {Board, IBoardComponentProps} from './components/Board'
 import {createGameComponent, IGameComponentProps} from './components/Game'
 import {MovementInput} from './components/MovementInput'
@@ -40,13 +40,12 @@ export default (store: Store) => {
         },
     )(Board))
 
-    container.share('MovementInput', (c) => connect(
+    container.share('MovementInput', () => connect(
         null,
         {
-             dispatchMovementInputReceived: (direction: Direction) => store.dispatch(movementInputReceived(direction)),
+            movementInputReceived
         },
     )(MovementInput))
-
 
     return container
 }

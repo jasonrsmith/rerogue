@@ -1,5 +1,14 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects'
-import {actions, IAction, IPositionXY, loadMap, loadObjects, mapLoaded, movePlayer, setPlayerPosition} from './actions'
+import {
+    actions, Direction,
+    IAction,
+    IPositionXY,
+    loadMap,
+    loadObjects,
+    mapLoaded,
+    movePlayer,
+    setPlayerPosition,
+} from './actions'
 import {convert2to1, pixelsToCoords} from './coordConverter'
 import {fetchMap} from './fetchMap'
 import {IMap, IState} from './model'
@@ -19,7 +28,7 @@ function* mapLoadedSaga(action: IAction<IMap>) {
     const objectsByPosition = Array(map.height * map.width)
     if (map.layersByName.meta.data) {
         const metaDefs: number[] = map.layersByName.meta.data
-        if (map.entities) { // TODO remove this
+        if (map.entities) {
             const gidProperties = map.entities
             for (let i = 0; i < metaDefs.length; i++) {
                 objectsByPosition[i] = gidProperties[metaDefs[i]]
@@ -56,9 +65,26 @@ function* setPlayerPositionSaga(action: IAction<IPositionXY>) {
     yield put(movePlayer({x: action.payload.x, y: action.payload.y}))
 }
 
+function* movementInputReceivedSaga(action: IAction<Direction>) {
+    const direction = action.payload
+    const {x, y} = yield select((state: IState) => ({ x: state.player.x, y: state.player.y }))
+    switch (direction) {
+        case Direction.up:
+            return yield put(setPlayerPosition({x, y: y - 1}))
+        case Direction.down:
+            return yield put(setPlayerPosition({x, y: y + 1}))
+        case Direction.left:
+            return yield put(setPlayerPosition({x: x - 1, y}))
+        case Direction.right:
+            return yield put(setPlayerPosition({x: x + 1, y}))
+        default:
+    }
+}
+
 export function* setupSagas() {
     yield takeEvery(actions.INIT, initGameSaga)
     yield takeEvery(actions.LOAD_MAP, loadMapSaga)
     yield takeEvery(actions.MAP_LOADED, mapLoadedSaga)
     yield takeEvery(actions.SET_PLAYER_POSITION, setPlayerPositionSaga)
+    yield takeEvery(actions.MOVEMENT_INPUT_RECEIVED, movementInputReceivedSaga)
 }

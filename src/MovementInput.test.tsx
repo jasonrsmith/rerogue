@@ -7,17 +7,17 @@ import {MovementInput} from './components/MovementInput'
 configure({ adapter: new ReactSixteenAdapter() });
 
 test('char is moved on input up', () => {
-    const dispatchMovementInputReceived = jest.fn()
-    const target = shallow(<MovementInput dispatchMovementInputReceived={dispatchMovementInputReceived}/>)
+    const movementInputReceived = jest.fn()
+    const target = shallow(<MovementInput movementInputReceived={movementInputReceived}/>)
     target.simulate('keydown', {key: 'ArrowUp'})
-    expect(dispatchMovementInputReceived).toBeCalledWith(Direction.up)
-    expect(dispatchMovementInputReceived.mock.calls.length).toBe(1);
+    expect(movementInputReceived).toBeCalledWith(Direction.up)
+    expect(movementInputReceived.mock.calls.length).toBe(1);
 })
 
 test('char is moved on input down', () => {
-    const dispatchMovementInputReceived = jest.fn()
-    const target = shallow(<MovementInput dispatchMovementInputReceived={dispatchMovementInputReceived}/>)
+    const movementInputReceived = jest.fn()
+    const target = shallow(<MovementInput movementInputReceived={movementInputReceived}/>)
     target.simulate('keydown', {key: 'ArrowDown'})
-    expect(dispatchMovementInputReceived).toBeCalledWith(Direction.down)
-    expect(dispatchMovementInputReceived.mock.calls.length).toBe(1);
+    expect(movementInputReceived).toBeCalledWith(Direction.down)
+    expect(movementInputReceived.mock.calls.length).toBe(1);
 })
