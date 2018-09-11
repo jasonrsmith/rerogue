@@ -2,7 +2,22 @@
 import {CSSProperties} from 'react'
 import {strEnum} from './util'
 
+export abstract class Entity {
+    public id: string
+
+    public x: number
+    public y: number
+
+    public height: number
+    public width: number
+
+    public onUpdate: () => void
+}
+
+
 export class Player implements IEntity, ICollidable {
+    public id: string
+
     public x: number
     public y: number
     public width: number
@@ -17,14 +32,16 @@ export class Player implements IEntity, ICollidable {
     }
 }
 
-export class StaticObject implements IEntity, ICollidable {
+export class StaticObject extends Entity implements ICollidable {
+    public id: string
+
     public x: number
     public y: number
     public width: number
     public height: number
 
     public onUpdate() {
-        return
+
     }
 
     public onCollide(eid: string) {
@@ -33,6 +50,8 @@ export class StaticObject implements IEntity, ICollidable {
 }
 
 export interface IEntity {
+    id: string
+
     x: number
     y: number
 

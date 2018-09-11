@@ -24,8 +24,6 @@ const initialState = {
 }
 
 export const reducers = (state: IState = initialState, action: IAction<any>) => {
-    console.log('action:', action)
-    console.log('beforestate:', state)
     switch (action.type) {
         case actions.MOVE_PLAYER:
             state = {
@@ -51,6 +49,6 @@ export const reducers = (state: IState = initialState, action: IAction<any>) => 
             break
         default:
     }
-    console.log('newstate:', state)
+    console.log(action, 'newstate:', state)
     return state
 }
