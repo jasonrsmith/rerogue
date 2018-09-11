@@ -1,8 +1,49 @@
+/* tslint:disable:max-classes-per-file */
 import {CSSProperties} from 'react'
 import {strEnum} from './util'
 
+export class Player implements IEntity, ICollidable {
+    public x: number
+    public y: number
+    public width: number
+    public height: number
+
+    public onUpdate() {
+        return
+    }
+
+    public onCollide(eid: string) {
+        return false
+    }
+}
+
+export class StaticObject implements IEntity, ICollidable {
+    public x: number
+    public y: number
+    public width: number
+    public height: number
+
+    public onUpdate() {
+        return
+    }
+
+    public onCollide(eid: string) {
+        return false
+    }
+}
+
 export interface IEntity {
-    collidable?: boolean
+    x: number
+    y: number
+
+    height: number
+    width: number
+
+    onUpdate: () => void
+}
+
+export interface ICollidable {
+    onCollide: (eid: string) => boolean
 }
 
 interface IObject {
@@ -85,5 +126,9 @@ export interface IState {
 
     // TODO convert player to entity
     player: IPlayer
-}
 
+    entitiesByPosIdx: string[]
+    entitiesByName: {
+        [eid: string]: IEntity
+    }
+}

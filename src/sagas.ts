@@ -7,7 +7,7 @@ import {
     loadObjects,
     mapLoaded,
     movePlayer,
-    setPlayerPosition,
+    setPlayerPosition, tick,
 } from './actions'
 import {convert2to1, pixelsToCoords} from './coordConverter'
 import {fetchMap} from './fetchMap'
@@ -70,15 +70,20 @@ function* movementInputReceivedSaga(action: IAction<Direction>) {
     const {x, y} = yield select((state: IState) => ({ x: state.player.x, y: state.player.y }))
     switch (direction) {
         case Direction.up:
-            return yield put(setPlayerPosition({x, y: y - 1}))
+            yield put(setPlayerPosition({x, y: y - 1}))
+            break
         case Direction.down:
-            return yield put(setPlayerPosition({x, y: y + 1}))
+            yield put(setPlayerPosition({x, y: y + 1}))
+            break
         case Direction.left:
-            return yield put(setPlayerPosition({x: x - 1, y}))
+            yield put(setPlayerPosition({x: x - 1, y}))
+            break
         case Direction.right:
-            return yield put(setPlayerPosition({x: x + 1, y}))
+            yield put(setPlayerPosition({x: x + 1, y}))
+            break
         default:
     }
+    yield put(tick())
 }
 
 export function* setupSagas() {

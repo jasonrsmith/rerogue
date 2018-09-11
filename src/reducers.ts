@@ -19,6 +19,8 @@ const initialState = {
         health: 1,
     },
 
+    entitiesByName: {},
+    entitiesByPosIdx: []
 }
 
 export const reducers = (state: IState = initialState, action: IAction<any>) => {

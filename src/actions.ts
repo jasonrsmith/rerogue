@@ -37,6 +37,7 @@ export const actions = strEnum([
     'MOVE_PLAYER',
     'SET_PLAYER_POSITION',
     'MOVEMENT_INPUT_RECEIVED',
+    'TICK',
 ])
 
 export const loadMap = (mapName: string) => createAction(actions.LOAD_MAP, mapName)
@@ -46,3 +47,4 @@ export const movePlayer = (pos: IPositionXY) => createAction(actions.MOVE_PLAYER
 export const setPlayerPosition = (pos: IPositionXY) => createAction(actions.SET_PLAYER_POSITION, pos)
 export const init = () => createAction(actions.INIT)
 export const movementInputReceived = (direction: Direction) => createAction(actions.MOVEMENT_INPUT_RECEIVED, direction)
+export const tick = () => createAction(actions.TICK)
